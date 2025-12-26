@@ -12,6 +12,22 @@
 html, body {
   overflow-y: auto;
 }
+.close-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+  font-weight: 700;
+  color: #333;
+  background: #f2f3f5;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 24px;
+  cursor: default; /* не обязательно работать */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  font-family: sans-serif;
+}
 
 
 
@@ -37,6 +53,11 @@ body {
   flex-direction: column;
   margin-bottom: 120px; /* для прокрутки и скрытия браузера */
 }
+
+const closeBtn = document.createElement("div");
+closeBtn.className = "close-btn";
+closeBtn.textContent = "×";
+document.querySelector(".phone").appendChild(closeBtn);
 
 
 .title {
@@ -64,6 +85,20 @@ body {
   aspect-ratio: 1 / 1;   /* идеальный квадрат */
   transition: background 0.25s, transform 0.15s;
 }
+.mystery {
+  width: 40%;
+  height: 40%;
+  background: #ffffff; /* светлый квадрат */
+  border: 2px solid #999; /* тонкая рамка */
+  border-radius: 6px; /* острые углы */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #333;
+  font-size: 18px;
+  pointer-events: none; /* не мешает клику по карточке */
+}
 
 
 .card:active {
@@ -81,7 +116,23 @@ body {
   color: #e0e0e0;
   text-align: center;
 }
+const card = document.createElement("div");
+card.className = "card";
 
+// Текст внутри карточки
+const day = document.createElement("div");
+day.className = "day";
+day.textContent = "Day " + (i + 1);
+card.appendChild(day);
+
+// Маленький светлый квадрат с "?"
+const mystery = document.createElement("div");
+mystery.className = "mystery";
+mystery.textContent = "?";
+card.appendChild(mystery);
+
+
+  
 .card.open .day {
   display: none; /* исчезает при клике */
 }
@@ -151,34 +202,39 @@ for (let i = 0; i < 9; i++) {
 
   card.appendChild(day);
 
-  card.addEventListener("click", () => {
-    if (card.classList.contains("open")) return;
+card.addEventListener("click", () => {
+  if (card.classList.contains("open")) return;
 
-    card.classList.add("open");
+  card.classList.add("open");
 
-    const reward = rewards[i];
-    const wrap = document.createElement("div");
-    wrap.className = "reward";
+  day.remove();       // исчезает текст Day
+  mystery.remove();   // исчезает маленький вопрос
 
-    const img = document.createElement("img");
-    img.src = reward.img;
-    wrap.appendChild(img);
+  const reward = rewards[i];
+  const wrap = document.createElement("div");
+  wrap.className = "reward";
 
-    if (reward.type === "currency") {
-      const amount = document.createElement("div");
-      amount.className = "amount";
-      amount.textContent = reward.amount;
-      wrap.appendChild(amount);
-    }
+  const img = document.createElement("img");
+  img.src = reward.img;
+  wrap.appendChild(img);
 
-    card.appendChild(wrap);
-  });
+  if (reward.type === "currency") {
+    const amount = document.createElement("div");
+    amount.className = "amount";
+    amount.textContent = reward.amount;
+    wrap.appendChild(amount);
+  }
+
+  card.appendChild(wrap);
+});
+
 
   grid.appendChild(card);
 }
 </script>
 </body>
 </html>
+
 
 
 
