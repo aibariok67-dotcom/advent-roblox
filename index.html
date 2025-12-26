@@ -30,13 +30,14 @@ body {
 }
 
 .phone {
-  width: 400px;
-  height: 640px;
+  width: 390px;  /* чуть шире, чем раньше */
+  min-height: 650px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 120px; 
+  margin-bottom: 120px; /* для прокрутки и скрытия браузера */
 }
+
 
 .title {
   text-align: center;
@@ -53,16 +54,17 @@ body {
 }
 
 .card {
-  background: #3a3a3a; /* чуть светлее серый */
-  border-radius: 10px;  /* углы чуть острее */
+  background: #3a3a3a; /* чуть светлее тёмно-серого */
+  border-radius: 6px;   /* ещё острее углы */
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
-  aspect-ratio: 1 / 1.05; /* почти квадрат */
+  aspect-ratio: 1 / 1;   /* идеальный квадрат */
   transition: background 0.25s, transform 0.15s;
 }
+
 
 .card:active {
   transform: scale(0.96);
@@ -177,6 +179,7 @@ for (let i = 0; i < 9; i++) {
 </script>
 </body>
 </html>
+
 
 
 
